@@ -1,6 +1,8 @@
 #include <cassert>
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include <string>
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
@@ -15,5 +17,17 @@ int main(int argc, char* argv[]) {
     if (!script.good()) {
         std::cerr << "Failed to open script" << std::endl;
         std::exit(1);
+    }
+
+    std::vector<std::string> statements;
+    while (script.good()) {
+        std::string current;
+        std::getline(script, current, ';');
+        statements.push_back(current);
+    }
+
+    for (std::size_t i = 0; i < statements.size(); ++i) {
+        std::cout << "Statement " << i << ":\t";
+        std::cout << statements[i] << '\n';
     }
 }
