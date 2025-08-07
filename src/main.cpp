@@ -1,8 +1,8 @@
 #include <cassert>
 #include <fstream>
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
