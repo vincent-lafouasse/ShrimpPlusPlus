@@ -44,7 +44,17 @@ void runFile(const char* path) {
     run(*maybeText);
 }
 
-void runInterpreter() {}
+void runInterpreter() {
+    while (true) {
+        std::cout << "> ";
+        std::string line;
+        std::getline(std::cin, line);
+        if (!std::cin.good()) {
+            std::exit(1);
+        }
+        run(line);
+    }
+}
 
 std::optional<std::string> readWholeFile(const char* path) {
     std::ifstream script(path);
