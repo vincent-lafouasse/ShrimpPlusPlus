@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "Token.hpp"
+#include "Lexer.hpp"
 
 namespace {
 // driver
@@ -29,6 +29,8 @@ int main(int argc, char* argv[]) {
 namespace {
 void run(const std::string& line) {
     std::cout << "Running:\t" << line << std::endl;
+
+    Lexer lexer(line);
 }
 
 std::optional<std::string> readWholeFile(const char* path);
