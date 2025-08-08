@@ -11,6 +11,8 @@
 namespace Run {
 struct Error {};
 
+// run doesnt return anything so this is really
+// Result<void, Error>, ie Option<Error>
 class Result {
    public:
     bool ok() const;
