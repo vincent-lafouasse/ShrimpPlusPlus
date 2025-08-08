@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "Token.hpp"
+
 int main(int argc, char* argv[]) {
     if (argc != 2) {
         std::cerr << "Usage: ./fryer script.rice" << std::endl;
