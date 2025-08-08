@@ -7,10 +7,10 @@
 class Token {
    public:
     enum class Kind {
-      // keywords
+        // keywords
         Function,
         Let,
-      // operators
+        // operators
         LeftParen,
         RightParen,
         LeftBrace,
@@ -20,7 +20,7 @@ class Token {
         Minus,
         Times,
         Divides,
-      // misc
+        // misc
         Identifier,
         Eof,
     };

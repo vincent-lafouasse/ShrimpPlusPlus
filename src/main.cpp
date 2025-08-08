@@ -6,16 +6,12 @@
 
 #include "Token.hpp"
 
-int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cerr << "Usage: ./fryer script.rice" << std::endl;
-        std::exit(1);
-    }
+void runInterpreter() {}
 
-    const char* scriptPath = argv[1];
-    std::cout << "input is " << scriptPath << std::endl;
+void runFile(const char* path) {
+    std::cout << "input is " << path << std::endl;
 
-    std::ifstream script(scriptPath);
+    std::ifstream script(path);
     if (!script.good()) {
         std::cerr << "Failed to open script" << std::endl;
         std::exit(1);
@@ -31,5 +27,17 @@ int main(int argc, char* argv[]) {
     for (std::size_t i = 0; i < statements.size(); ++i) {
         std::cout << "Statement " << i << ":\t";
         std::cout << statements[i] << '\n';
+    }
+}
+
+int main(int argc, char* argv[]) {
+    if (argc > 2) {
+        std::cerr << "Usage: ./fryer [script.rice]" << std::endl;
+        std::exit(1);
+    } else if (argc == 2) {
+        const char* scriptPath = argv[1];
+        runFile(scriptPath);
+    } else {
+        runInterpreter();
     }
 }
