@@ -8,11 +8,21 @@
 
 #include "Lexer.hpp"
 
-namespace Run {
-struct Error {};
+// ErrorKind should implement ErrorKind::format()
+template <typename ErrorKind>
+struct Error {
+    ErrorKind kind;
+    std::string message;
+    std::size_t lineNumber;
 
-std::optional<Error> runInterpreter();
-std::optional<Error> runFile(const char* path);
+    std::string format() const {
+        return "";
+    }
+};
+
+namespace Run {
+void runInterpreter();
+void runFile(const char* path);
 }  // namespace Run
 
 int main(int argc, char* argv[]) {
@@ -28,15 +38,19 @@ int main(int argc, char* argv[]) {
 }
 
 namespace Run {
-void run(const std::string& line) {
+struct Error {};
+
+std::optional<Error> run(const std::string& line) {
     std::cout << "Running:\t" << line << std::endl;
 
     Lexer lexer(line);
+
+    return {};
 }
 
 std::optional<std::string> readWholeFile(const char* path);
 
-std::optional<Error> runFile(const char* path) {
+void runFile(const char* path) {
     auto maybeText = readWholeFile(path);
 
     if (maybeText == std::nullopt) {
@@ -45,10 +59,9 @@ std::optional<Error> runFile(const char* path) {
     }
 
     run(*maybeText);
-    return {};
 }
 
-std::optional<Error> runInterpreter() {
+void runInterpreter() {
     while (true) {
         std::cout << "> ";
         std::string line;
@@ -58,7 +71,6 @@ std::optional<Error> runInterpreter() {
         }
         run(line);
     }
-    return {};
 }
 
 std::optional<std::string> readWholeFile(const char* path) {
