@@ -8,8 +8,18 @@
 
 #include "Lexer.hpp"
 
-namespace {
-// driver
+namespace Run {
+struct Error {};
+
+class Result {
+public:
+    bool ok() const;
+    bool error() const;
+
+private:
+    std::optional<Error> self;
+};
+
 void runInterpreter();
 void runFile(const char* path);
 }  // namespace
@@ -20,13 +30,13 @@ int main(int argc, char* argv[]) {
         std::exit(1);
     } else if (argc == 2) {
         const char* scriptPath = argv[1];
-        runFile(scriptPath);
+        Run::runFile(scriptPath);
     } else {
-        runInterpreter();
+        Run::runInterpreter();
     }
 }
 
-namespace {
+namespace Run {
 void run(const std::string& line) {
     std::cout << "Running:\t" << line << std::endl;
 
