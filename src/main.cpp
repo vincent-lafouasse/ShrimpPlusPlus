@@ -11,19 +11,8 @@
 namespace Run {
 struct Error {};
 
-// run doesnt return anything so this is really
-// Result<void, Error>, ie Option<Error>
-class Result {
-   public:
-    bool ok() const;
-    bool error() const;
-
-   private:
-    std::optional<Error> self;
-};
-
-void runInterpreter();
-void runFile(const char* path);
+std::optional<Error> runInterpreter();
+std::optional<Error> runFile(const char* path);
 }  // namespace Run
 
 int main(int argc, char* argv[]) {
@@ -47,7 +36,7 @@ void run(const std::string& line) {
 
 std::optional<std::string> readWholeFile(const char* path);
 
-void runFile(const char* path) {
+std::optional<Error> runFile(const char* path) {
     auto maybeText = readWholeFile(path);
 
     if (maybeText == std::nullopt) {
@@ -56,9 +45,10 @@ void runFile(const char* path) {
     }
 
     run(*maybeText);
+    return {};
 }
 
-void runInterpreter() {
+std::optional<Error> runInterpreter() {
     while (true) {
         std::cout << "> ";
         std::string line;
@@ -68,6 +58,7 @@ void runInterpreter() {
         }
         run(line);
     }
+    return {};
 }
 
 std::optional<std::string> readWholeFile(const char* path) {
