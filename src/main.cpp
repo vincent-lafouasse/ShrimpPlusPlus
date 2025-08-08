@@ -34,12 +34,10 @@ void run(const std::string& line) {
 std::optional<std::string> readWholeFile(const char* path);
 
 void runFile(const char* path) {
-    std::cout << "input is " << path << std::endl;
-
     auto maybeText = readWholeFile(path);
 
     if (maybeText == std::nullopt) {
-        std::cerr << "Failed to open script" << std::endl;
+        std::cerr << "Failed to open script" << path << std::endl;
         std::exit(1);
     }
 
