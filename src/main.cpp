@@ -12,17 +12,17 @@ namespace Run {
 struct Error {};
 
 class Result {
-public:
+   public:
     bool ok() const;
     bool error() const;
 
-private:
+   private:
     std::optional<Error> self;
 };
 
 void runInterpreter();
 void runFile(const char* path);
-}  // namespace
+}  // namespace Run
 
 int main(int argc, char* argv[]) {
     if (argc > 2) {
@@ -78,4 +78,4 @@ std::optional<std::string> readWholeFile(const char* path) {
     buffer << script.rdbuf();
     return buffer.str();
 }
-}  // namespace
+}  // namespace Run
